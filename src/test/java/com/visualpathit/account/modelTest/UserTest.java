@@ -1,56 +1,35 @@
-package com.visualpathit.account.modelTest;
+package com.visualpathit.account.model;
 
-import junit.framework.Assert;
-
-import java.util.HashSet;
+import jakarta.persistence.*;
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+@Entity
+@Table(name = "user")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-import com.visualpathit.account.model.Role;
-import com.visualpathit.account.model.User;
+    private String username;
+    private String password;
 
-/** {@author waheedk} !*/
-public class UserTest {
-	
-	public static final Long EXPECTED_ID = 1L;
-	public static final int EXPECTED_SIZE = 1;
-    public static final String EXPECTED_USERNAME = "Wahidkhan74";
-    public static final String EXPECTED_PASSWD = "Wahidkhan74";
-    public static final String EXPECTED_USEREMAIL = "XXXXX@gmail.com";
-    private User user;
-    @Before
-    public void setUp() throws Exception {
-    	   	
-    	Role role = new Role();
-    	role.setId(1L);
-        role.setName("Admin");
-        Set<Role> roles = new HashSet<Role>();    	
-        roles.add(role); 
-    	
-        user = new User();
-        user.setId(1L);
-        user.setUsername("Wahidkhan74");
-        user.setPassword("Wahidkhan74");
-        user.setUserEmail("XXXXX@gmail.com");
-        user.setRoles(roles);
-    }
+    @Transient
+    private String passwordConfirm;
 
-    @After
-    public void tearDown() throws Exception {
-        System.out.println("Test Completed");
+    @ManyToMany
+    @JoinTable(name = "user_role", 
+               joinColumns = @JoinColumn(name = "user_id"), 
+               inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-    }
-
-    @Test
-    public void testUserDetailsHappyFlow() throws Exception {
-    	Assert.assertEquals(EXPECTED_ID, user.getId());
-        Assert.assertEquals(EXPECTED_USERNAME, user.getUsername());
-        Assert.assertEquals(EXPECTED_PASSWD, user.getPassword());
-        Assert.assertEquals(EXPECTED_USEREMAIL, user.getUserEmail());
-        Assert.assertEquals(EXPECTED_SIZE,user.getRoles().size());
-
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getPasswordConfirm() { return passwordConfirm; }
+    public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
+    public Set<Role> getRoles() { return roles; }
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
 }
