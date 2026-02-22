@@ -12,10 +12,11 @@
 
     <properties>
         <java.version>17</java.version>
+        <!-- يمكنك تعريف إصدارات موحدة هنا إن أردت -->
     </properties>
 
     <dependencies>
-        <!-- Spring Boot starter dependencies -->
+        <!-- =============== Spring Boot Starters =============== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -28,33 +29,38 @@
             <version>3.3.3</version>
         </dependency>
 
+        <!-- Starter Data JPA (يجلب معه Hibernate و JPA API ضمنياً) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>3.3.3</version>
         </dependency>
 
+        <!-- =============== تبعيات إضافية =============== -->
+        <!-- SLF4J API (عادةً ما يكون موجوداً مع Spring Boot، لكن نضيفه صراحة) -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>2.0.9</version>
         </dependency>
 
-        <!-- JPA API (عادةً ما تأتي مع starter-data-jpa، لكن أضفناها صراحة) -->
+        <!-- JPA API (يمكن حذفها لأن starter-data-jpa يسحبها، ولكن للتوضيح) -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
             <version>3.1.0</version>
+            <!-- اختياري: يمكن إضافته إذا أردت الإصدار صراحة -->
         </dependency>
 
-        <!-- Hibernate Core (تنفيذ JPA) -->
+        <!-- Hibernate Core (أيضاً يأتي مع starter-data-jpa) -->
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.3.0.Final</version>
+            <!-- اختياري: إذا أردت الإصدار المحدد بدلاً من الذي يجلبه الـ starter -->
         </dependency>
 
-        <!-- H2 Database (وقت التشغيل فقط) -->
+        <!-- قاعدة البيانات H2 (وقت التشغيل فقط) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -65,6 +71,7 @@
 
     <build>
         <plugins>
+            <!-- Maven Compiler Plugin لإصدار Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
