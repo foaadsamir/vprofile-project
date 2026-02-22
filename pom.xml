@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
@@ -8,15 +9,15 @@
     <groupId>com.visualpathit</groupId>
     <artifactId>vprofile</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>17</java.version>
-        <!-- يمكنك تعريف إصدارات موحدة هنا إن أردت -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!-- =============== Spring Boot Starters =============== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -29,59 +30,46 @@
             <version>3.3.3</version>
         </dependency>
 
-        <!-- Starter Data JPA (يجلب معه Hibernate و JPA API ضمنياً) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>3.3.3</version>
         </dependency>
 
-        <!-- =============== تبعيات إضافية =============== -->
-        <!-- SLF4J API (عادةً ما يكون موجوداً مع Spring Boot، لكن نضيفه صراحة) -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.9</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>3.3.3</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- JPA API (يمكن حذفها لأن starter-data-jpa يسحبها، ولكن للتوضيح) -->
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.1.0</version>
-            <!-- اختياري: يمكن إضافته إذا أردت الإصدار صراحة -->
-        </dependency>
-
-        <!-- Hibernate Core (أيضاً يأتي مع starter-data-jpa) -->
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.3.0.Final</version>
-            <!-- اختياري: إذا أردت الإصدار المحدد بدلاً من الذي يجلبه الـ starter -->
-        </dependency>
-
-        <!-- قاعدة البيانات H2 (وقت التشغيل فقط) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.2.224</version>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.9</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>vprofile-v2</finalName>
         <plugins>
-            <!-- Maven Compiler Plugin لإصدار Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
-                <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
             </plugin>
         </plugins>
     </build>
-
 </project>
