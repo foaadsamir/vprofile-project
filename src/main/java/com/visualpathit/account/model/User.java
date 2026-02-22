@@ -1,88 +1,30 @@
 package com.visualpathit.account.model;
 
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
-/**{@author waheedk} !*/
+
 @Entity
 @Table(name = "user")
 public class User {
-	/** the id field !*/
-    private Long id;
-    /** the user name field !*/
-    private String username;
-    /** the password field !*/
-    private String password;
-    /** the userEmail field !*/
-    private String userEmail;
-    /** the passwordConfirm field !*/
-    private String passwordConfirm;
-    /** the roles field !*/
-    private Set<Role> roles;
-    /** {@inheritDoc}} !*/
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    /** {@link User#id} */
-    public Long getId() {
-        return id;
-    }
-    /** {@inheritDoc}} !*/
-    public final void setId(final Long id) {
-        this.id = id;
-    }
-    /**{@inheritDoc}} !*/
-    public String getUsername() {
-        return username;
-    }
-    /** {@inheritDoc}} !*/
-    public final void setUsername(final String username) {
-        this.username = username;
-    }
-    /**
-     * {@link User#password}
-     * @return The {@link String} instance representing password
-     !*/
-    public String getPassword() {
-        return password;
-    }
-    /**
-     * {@inheritDoc}} 
-     !*/
-    public final void setPassword(final String password) {
-        this.password = password;
-    }
-    /**
-     * {@link User#userEmail}
-     * @return The {@link String} instance representing userEmail.
-     !*/
-    public String getUserEmail() {
-		return userEmail;
-	}
-    /** {@inheritDoc}} !*/
-	public final void setUserEmail(final String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	 /** {@inheritDoc}} !*/
-	@Transient
-	/**
-     * {@link User#passwordConfirm}
-     !*/
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-	 /** {@inheritDoc}} !*/
-    public final void setPasswordConfirm(final String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-    /** {@inheritDoc}} !*/
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String password;
+    @Transient
+    private String passwordConfirm;
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    /** {@inheritDoc}} !*/
-    public final void setRoles(final Set<Role> roles) {
-        this.roles = roles;
-    }
+    private Set<Role> roles;
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getPasswordConfirm() { return passwordConfirm; }
+    public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
+    public Set<Role> getRoles() { return roles; }
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
 }
