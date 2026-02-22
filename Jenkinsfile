@@ -13,7 +13,7 @@ pipeline {
         NEXUSIP        = '172.31.46.94'
         NEXUSPORT      = '8081'
         NEXUS_GRP_REPO = 'vpro-maven-group'
-        NEXUS_LOGIN    = 'nexuslogin'        // Credential ID في Jenkins
+        NEXUS_LOGIN    = 'nexuslogin'
         SONARSERVER    = 'sonarserver'
         SONARSCANNER   = 'sonarscanner'
     }
@@ -65,6 +65,8 @@ pipeline {
         stage('Sonar Analysis') {
             environment {
                 scannerHome = tool "${SONARSCANNER}"
+                JAVA_HOME11 = tool "JDK11"
+                PATH = "${JAVA_HOME11}/bin:${env.PATH}"
             }
             steps {
                 withSonarQubeEnv("${SONARSERVER}") {
